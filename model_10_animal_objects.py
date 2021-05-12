@@ -108,7 +108,7 @@ print(Yvalidation.shape)
 plt.imshow(Xvalidation[199])
 print(Yvalidation[199])
 
-
+#THE MODEL
 model = keras.models.Sequential()
 model.add(keras.layers.Conv2D(128, (3,3), padding='same', activation='relu',input_shape=(32,32,3)))
 model.add(keras.layers.Conv2D(128, (3,3), activation='relu'))
@@ -132,11 +132,11 @@ model.add(keras.layers.Dense(64, activation='relu'))
 #model.add(keras.layers.Dense(32, activation='relu'))
 model.add(keras.layers.Dense(10, activation='softmax'))
 
-
+#Optimizer
 model.compile(optimizer=optimizers.Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
 model.summary()
-
-history = model.fit(Xtrain, Ytrain, batch_size = 2048, epochs=20, verbose=1, validation_data=(Xvalidation, Yvalidation))
+#Training
+history = model.fit(Xtrain, Ytrain, batch_size = 2048, epochs=200, verbose=1, validation_data=(Xvalidation, Yvalidation))
 
 model.evaluate(Xvalidation, Yvalidation, verbose=0)
 
@@ -147,12 +147,13 @@ val_loss = history.history['val_loss']
 
 epochs = range(len(acc))
 
+#Plot the accuracy of Training and Validation sets
 plt.plot(epochs, acc, 'r', label='Training accuracy')
 plt.plot(epochs, val_acc, 'b', label='Validation accuracy')
 plt.title('Training and Validation accuracy')
 plt.legend(loc=0)
 plt.figure()
-
+#Plot the loss of Training and Validation sets
 plt.plot(epochs, loss, 'c', label='Training loss')
 plt.plot(epochs, val_loss, 'm', label='Validation loss')
 plt.title('Training and Validation loss')
